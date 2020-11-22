@@ -1,6 +1,8 @@
 package com.example.janusgraph;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.tinkerpop.gremlin.process.traversal.Order;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Direction;
@@ -10,9 +12,7 @@ import org.janusgraph.core.schema.JanusGraphIndex;
 import org.janusgraph.core.schema.JanusGraphManagement;
 import org.janusgraph.core.schema.SchemaAction;
 import org.janusgraph.core.schema.SchemaStatus;
-import org.janusgraph.diskstorage.configuration.ModifiableConfiguration;
 import org.janusgraph.diskstorage.keycolumnvalue.scan.ScanMetrics;
-import org.janusgraph.graphdb.configuration.GraphDatabaseConfiguration;
 import org.janusgraph.graphdb.database.StandardJanusGraph;
 import org.janusgraph.graphdb.database.management.GraphIndexStatusReport;
 import org.janusgraph.graphdb.database.management.GraphIndexStatusWatcher;
@@ -42,12 +42,8 @@ import static org.janusgraph.core.schema.SchemaStatus.*;
 public class JanusLocalExampleIndex {
 
 	public static void main(String[] args) throws Exception {
-//		String configFileName =
-//				"2_janusgraph-example/src/main/java/com/example/janusgraph/local-berkeleyje-lucene.properties";
-//		Configuration conf = new PropertiesConfiguration(configFileName);
-
-		ModifiableConfiguration conf = GraphDatabaseConfiguration.buildGraphConfiguration();
-		conf.set(GraphDatabaseConfiguration.STORAGE_BACKEND, "inmemory");
+		String configFileName = "configs/local-berkeleyje-lucene.properties";
+		Configuration conf = new PropertiesConfiguration(configFileName);
 
 		JanusGraph janusGraph = JanusGraphFactory.open(conf);
 		StandardJanusGraph sjg = (StandardJanusGraph) janusGraph;
@@ -73,15 +69,16 @@ public class JanusLocalExampleIndex {
 		}
 
 		Iterable<PropertyKey> relationTypes = mgmt.getRelationTypes(PropertyKey.class);
-		System.out.println(
-				StreamSupport
-						.stream(relationTypes.spliterator(), false)
-						.collect(Collectors.toList())
+		log.info(StreamSupport
+				.stream(relationTypes.spliterator(), false)
+				.collect(Collectors.toList()).toString()
 		);
 
 
 		// if not commit, indexes will be enabled simultaneously
 		mgmt.commit();
+
+
 		mgmt = janusGraph.openManagement();
 
 		// ---------------------------------------------------------------------------------------------------
@@ -175,6 +172,7 @@ public class JanusLocalExampleIndex {
 				SchemaStatus status = graphIndex.getIndexStatus(propertyKey);
 				switch (status) {
 					case DISABLED:
+						// doesn't work
 						mgmt.updateIndex(graphIndex, SchemaAction.REMOVE_INDEX).get();
 						continue indexes;
 					case INSTALLED:
@@ -198,7 +196,7 @@ public class JanusLocalExampleIndex {
 			GraphIndexStatusWatcher graphIndexStatusWatcher =
 					ManagementSystem
 							.awaitGraphIndexStatus(janusGraph, graphIndex)
-							.status(REGISTERED, ENABLED)
+							.status(REGISTERED, ENABLED, DISABLED)
 							.pollInterval(1, ChronoUnit.SECONDS);
 			GraphIndexStatusReport call = graphIndexStatusWatcher.call();
 			log.info("{}", call);

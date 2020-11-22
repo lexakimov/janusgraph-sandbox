@@ -21,7 +21,7 @@ import java.util.Map;
 public class JanusRemoteExample {
 
 	public static void main(String[] args) throws Exception {
-		String configFileName = "2_janusgraph-example/src/main/java/com/example/janusgraph/remote-graph.properties";
+		String configFileName = "configs/remote-graph.properties";
 		Configuration conf = new PropertiesConfiguration(configFileName);
 
 		// ------  bytecode

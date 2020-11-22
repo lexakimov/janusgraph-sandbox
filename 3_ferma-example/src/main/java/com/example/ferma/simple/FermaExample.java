@@ -4,7 +4,7 @@ import com.syncleus.ferma.DelegatingFramedGraph;
 import com.syncleus.ferma.FramedGraph;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Graph;
-import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
+import org.janusgraph.core.JanusGraphFactory;
 
 import java.util.UUID;
 
@@ -15,7 +15,8 @@ import java.util.UUID;
 public class FermaExample {
 
 	public static void main(String[] args) throws Exception {
-		Graph graph = TinkerGraph.open();
+//		Graph graph = TinkerGraph.open();
+		Graph graph = JanusGraphFactory.open("inmemory");
 
 		// Simple mode
 //		FramedGraph fg = new DelegatingFramedGraph<>(graph);

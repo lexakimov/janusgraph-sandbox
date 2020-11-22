@@ -6,7 +6,7 @@ import com.syncleus.ferma.DelegatingFramedGraph;
 import com.syncleus.ferma.FramedGraph;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Graph;
-import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
+import org.janusgraph.core.JanusGraphFactory;
 
 /**
  * @author akimov
@@ -15,7 +15,8 @@ import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
 public class FermaExampleAnnotated {
 
 	public static void main(String[] args) throws Exception {
-		Graph graph = TinkerGraph.open();
+//		Graph graph = TinkerGraph.open();
+		Graph graph = JanusGraphFactory.open("inmemory");
 		GraphTraversalSource g = graph.traversal();
 		FramedGraph fg = new DelegatingFramedGraph<>(graph, "com.example.ferma.annotated");
 
