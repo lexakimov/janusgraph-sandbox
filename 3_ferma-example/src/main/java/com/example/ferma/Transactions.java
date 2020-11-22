@@ -7,7 +7,6 @@ import com.syncleus.ferma.FramedGraph;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Transaction;
@@ -22,7 +21,7 @@ import org.janusgraph.graphdb.database.StandardJanusGraph;
 @Slf4j
 public class Transactions {
 	@SneakyThrows
-	public static void main(String[] args) throws ConfigurationException {
+	public static void main(String[] args) {
 		String configFileName = "configs/local-berkeleyje-lucene.properties";
 		Configuration conf = new PropertiesConfiguration(configFileName);
 
