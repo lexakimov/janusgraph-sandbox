@@ -13,35 +13,20 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.syncleus.ferma</groupId>
-			<artifactId>ferma</artifactId>
-			<version>3.3.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.tinkerpop</groupId>
-			<artifactId>tinkergraph-gremlin</artifactId>
-			<version>3.4.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.janusgraph</groupId>
-			<artifactId>janusgraph-core</artifactId>
-			<version>${janusgraph.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.janusgraph</groupId>
 			<artifactId>janusgraph-berkeleyje</artifactId>
-			<version>${janusgraph.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.janusgraph</groupId>
 			<artifactId>janusgraph-lucene</artifactId>
-			<version>${janusgraph.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.janusgraph</groupId>
 			<artifactId>janusgraph-inmemory</artifactId>
-			<version>${janusgraph.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syncleus.ferma</groupId>
+			<artifactId>ferma</artifactId>
 		</dependency>
 	</dependencies>
 </project>

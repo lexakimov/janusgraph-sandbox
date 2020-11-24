@@ -16,9 +16,59 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<!--		<janusgraph.version>0.6.0-SNAPSHOT</janusgraph.version>-->
+		<!--		<janusgraph.version>0.6.0-SNAPSHOT</janusgraph.version>-->
 		<janusgraph.version>0.5.2</janusgraph.version>
+		<tinkergraph.version>3.4.8</tinkergraph.version>
+		<ferma.version>3.3.2</ferma.version>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.syncleus.ferma</groupId>
+				<artifactId>ferma</artifactId>
+				<version>${ferma.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.tinkerpop</groupId>
+				<artifactId>gremlin-core</artifactId>
+				<version>${tinkergraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tinkerpop</groupId>
+				<artifactId>gremlin-driver</artifactId>
+				<version>${tinkergraph.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.tinkerpop</groupId>
+				<artifactId>tinkergraph-gremlin</artifactId>
+				<version>${tinkergraph.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-core</artifactId>
+				<version>${janusgraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-berkeleyje</artifactId>
+				<version>${janusgraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-lucene</artifactId>
+				<version>${janusgraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-inmemory</artifactId>
+				<version>${janusgraph.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -58,7 +108,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
