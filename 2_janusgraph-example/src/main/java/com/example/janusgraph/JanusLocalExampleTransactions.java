@@ -50,7 +50,7 @@ public class JanusLocalExampleTransactions {
 		tx.onClose(Transaction.CLOSE_BEHAVIOR.MANUAL);
 		tx.addTransactionListener(txListener);
 
-		tx.open();
+		tx.open(); // opens new thread-bound tx. invoke of StandardJanusGraph.newThreadBoundTransaction()
 		g.V().drop().toList();
 		tx.commit();
 
@@ -73,10 +73,10 @@ public class JanusLocalExampleTransactions {
 		tx.commit();
 
 		tx.open();
-		JanusGraphTransaction jgTx1 = sjg.getCurrentThreadTx();
+		JanusGraphTransaction jgTx1 = sjg.getCurrentThreadTx(); // it's thread-bound tx
 		g.addV("person").property("name", "peter").next();
 
-		JanusGraphTransaction jgTx2 = sjg.newTransaction();
+		JanusGraphTransaction jgTx2 = sjg.newTransaction();     // non thread-bound tx. StandardJanusGraph.newThreadBoundTransaction()
 		jgTx2.addVertex("person").property("name", "thomas").element();
 
 		JanusGraphTransaction jgTx3 = sjg.newThreadBoundTransaction();
@@ -102,7 +102,7 @@ public class JanusLocalExampleTransactions {
 
 		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		// each management creates it's own tx
-		JanusGraphManagement mgmt1 = graph.openManagement();
+		JanusGraphManagement mgmt1 = graph.openManagement(); // disableBatchLoading()
 		JanusGraphManagement mgmt2 = graph.openManagement();
 		mgmt1.commit();
 		mgmt2.rollback();

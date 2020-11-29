@@ -11,7 +11,6 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Transaction;
 import org.janusgraph.core.JanusGraphFactory;
-import org.janusgraph.core.JanusGraphTransaction;
 import org.janusgraph.graphdb.database.StandardJanusGraph;
 
 /**
@@ -29,10 +28,7 @@ public class Transactions {
 		GraphTraversalSource g = graph.traversal();
 		FramedGraph fg = new DelegatingFramedGraph<>(graph, "com.example.ferma.annotated");
 
-		Transaction tx;
-		tx = graph.tx();
-//		tx = g.tx();
-//		tx = fg.tx().getDelegate();
+		Transaction tx = graph.tx(); // tx = g.tx(); tx = fg.tx().getDelegate();
 
 		// если вызвать tx.close() то всё это обнулится
 		tx.onReadWrite(Transaction.READ_WRITE_BEHAVIOR.MANUAL);
@@ -40,7 +36,6 @@ public class Transactions {
 		tx.addTransactionListener(status -> {
 			log.info("\u001b[42;1m\u001b[36mTransaction listener: {}\u001b[0m", status);
 		});
-
 
 		fg.tx().open();
 		Person лёша = fg.addFramedVertex(Programmer.class);
@@ -58,11 +53,9 @@ public class Transactions {
 		лёша.worksWith(саша);
 		fg.tx().commit();
 
-		JanusGraphTransaction janusGraphTransaction1 = graph.newTransaction();
-		JanusGraphTransaction janusGraphTransaction2 = graph.newThreadBoundTransaction();
-//		graph.buildTransaction()
-//		graph.closeTransaction();
-
+		fg.tx().open();
+		GraphUtils.printAll(fg.getRawTraversal());
+		fg.tx().commit();
 
 		JanusGraphFactory.drop(graph);
 		graph.close();

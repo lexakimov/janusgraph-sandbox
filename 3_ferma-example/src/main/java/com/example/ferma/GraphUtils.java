@@ -4,14 +4,15 @@ import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSo
 import org.apache.tinkerpop.gremlin.structure.Element;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author akimov
  * created at 11.10.2020 12:41
  */
-public class Utils {
+public class GraphUtils {
 	public static void printAll(GraphTraversalSource g) {
-		List<? extends Element> vertices = g.V().toList();
+		List<? extends Element> vertices = g.V().toList().stream().sorted().collect(Collectors.toList());
 		_iter("vertices:", vertices);
 
 		System.out.println();
@@ -20,9 +21,14 @@ public class Utils {
 	}
 
 	private static void _iter(String label, List<? extends Element> vertices) {
-		System.out.println(label);
+		System.out.print(label);
+		if (vertices.isEmpty()) {
+			System.out.println("[empty]");
+		} else {
+			System.out.println("[" + vertices.size() + "]");
+		}
 		for (Element e : vertices) {
-			System.out.printf("%4s | %8s |", e.id(), e.label());
+			System.out.printf("%12s | %8s |", e.id(), e.label());
 			e.properties().forEachRemaining(p -> {
 				if (p.key().equals("ferma_type")) {
 					System.out.printf(" %10s : %-40s |", p.key(), p.value());
