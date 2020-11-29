@@ -73,6 +73,7 @@ public class JanusLocalExampleTransactionsThreaded {
 
 		log.info(String.valueOf(graph.getOpenTransactions().size()));
 
+		executorService.shutdown();
 		graph.close();
 	}
 

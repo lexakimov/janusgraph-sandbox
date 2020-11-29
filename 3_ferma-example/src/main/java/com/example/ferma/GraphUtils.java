@@ -12,32 +12,38 @@ import java.util.stream.Collectors;
  */
 public class GraphUtils {
 	public static void printAll(GraphTraversalSource g) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(Thread.currentThread().getName());
+		sb.append(" +++ \n");
+		
 		List<? extends Element> vertices = g.V().toList().stream().sorted().collect(Collectors.toList());
-		_iter("vertices:", vertices);
-
-		System.out.println();
+		_iter("vertices:", vertices, sb);
+		
+		sb.append("\n");
 		List<? extends Element> edges = g.E().toList();
-		_iter("edges:", edges);
+		_iter("edges:", edges, sb);
+		
+		System.out.println(sb);
+		
 	}
-
-	private static void _iter(String label, List<? extends Element> vertices) {
-		System.out.print(label);
+	
+	private static void _iter(String label, List<? extends Element> vertices, StringBuilder sb) {
 		if (vertices.isEmpty()) {
-			System.out.println("[empty]");
-		} else {
-			System.out.println("[" + vertices.size() + "]");
+			return;
 		}
+		sb.append(label);
+		sb.append("[").append(vertices.size()).append("]\n");
 		for (Element e : vertices) {
-			System.out.printf("%12s | %8s |", e.id(), e.label());
+			sb.append(String.format("%12s | %8s |", e.id(), e.label()));
 			e.properties().forEachRemaining(p -> {
 				if (p.key().equals("ferma_type")) {
-					System.out.printf(" %10s : %-40s |", p.key(), p.value());
+					sb.append(String.format(" %10s : %-40s |", p.key(), p.value()));
 				} else {
-					System.out.printf(" %8s : %10s |", p.key(), p.value());
+					sb.append(String.format(" %8s : %10s |", p.key(), p.value()));
 				}
 			});
-			System.out.printf("%30s", e);
-			System.out.println();
+			sb.append(String.format("%30s", e));
+			sb.append("\n");
 		}
 	}
 }

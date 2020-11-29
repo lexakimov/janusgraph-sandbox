@@ -23,7 +23,7 @@ import static java.util.stream.StreamSupport.stream;
  * created at 17.10.2020 12:52
  */
 @Slf4j
-public class JanusLocalExampleTransactions {
+public class JanusLocalExampleTransactionsThreadBound {
 
 	static Consumer<Transaction.Status> txListener = status -> {
 		log.info("\u001b[42;1m\u001b[36mTransaction listener: {}\u001b[0m", status);

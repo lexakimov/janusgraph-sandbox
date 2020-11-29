@@ -18,7 +18,7 @@ import org.janusgraph.graphdb.database.StandardJanusGraph;
  * created at 17.10.2020 8:39
  */
 @Slf4j
-public class Transactions {
+public class TransactionsThreadBound {
 	@SneakyThrows
 	public static void main(String[] args) {
 		String configFileName = "configs/local-berkeleyje-lucene.properties";
