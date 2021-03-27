@@ -13,6 +13,10 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.apache.tinkerpop</groupId>
+			<artifactId>gremlin-server</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.janusgraph</groupId>
 			<artifactId>janusgraph-inmemory</artifactId>
 		</dependency>
@@ -24,6 +28,14 @@
 			<groupId>org.janusgraph</groupId>
 			<artifactId>janusgraph-lucene</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.janusgraph</groupId>
+			<artifactId>janusgraph-server</artifactId>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.janusgraph</groupId>-->
+<!--			<artifactId>janusgraph-cql</artifactId>-->
+<!--		</dependency>-->
 	</dependencies>
 
 </project>

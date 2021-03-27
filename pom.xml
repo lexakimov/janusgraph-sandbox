@@ -17,8 +17,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!--		<janusgraph.version>0.6.0-SNAPSHOT</janusgraph.version>-->
-		<janusgraph.version>0.5.2</janusgraph.version>
-		<tinkergraph.version>3.4.8</tinkergraph.version>
+		<janusgraph.version>0.5.3</janusgraph.version>
+		<tinkergraph.version>3.4.9</tinkergraph.version>
 		<ferma.version>3.3.2</ferma.version>
 	</properties>
 
@@ -38,6 +38,16 @@
 			<dependency>
 				<groupId>org.apache.tinkerpop</groupId>
 				<artifactId>gremlin-driver</artifactId>
+				<version>${tinkergraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tinkerpop</groupId>
+				<artifactId>gremlin-groovy</artifactId>
+				<version>${tinkergraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tinkerpop</groupId>
+				<artifactId>gremlin-server</artifactId>
 				<version>${tinkergraph.version}</version>
 			</dependency>
 
@@ -65,6 +75,16 @@
 			<dependency>
 				<groupId>org.janusgraph</groupId>
 				<artifactId>janusgraph-inmemory</artifactId>
+				<version>${janusgraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-server</artifactId>
+				<version>${janusgraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-cql</artifactId>
 				<version>${janusgraph.version}</version>
 			</dependency>
 		</dependencies>
