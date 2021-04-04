@@ -1,7 +1,7 @@
 package com.example.ferma;
 
-import com.example.ferma.annotated.Person;
-import com.example.ferma.annotated.Programmer;
+import com.example.ferma.annotated.domain.vertex.Person;
+import com.example.ferma.annotated.domain.vertex.Programmer;
 import com.syncleus.ferma.DelegatingFramedGraph;
 import com.syncleus.ferma.FramedGraph;
 import com.syncleus.ferma.WrappedFramedGraph;
@@ -40,23 +40,23 @@ public class TransactionsThreadedAsMultiTx {
 		WrappedFramedGraph<?> graphTx3 = getThreadedTx(fg);
 
 //		graphTx1.tx().open();
-		Person man1 = graphTx1.addFramedVertex(Programmer.class);
-		man1.setName("вася");
-		man1.setAge(26);
+		Person rick = graphTx1.addFramedVertex(Programmer.class);
+		rick.setName("Rick");
+		rick.setAge(26);
 
 //		graphTx2.tx().open();
-		Person man2 = graphTx2.addFramedVertex(Programmer.class);
-		man2.setName("петя");
-		man2.setAge(29);
+		Person max = graphTx2.addFramedVertex(Programmer.class);
+		max.setName("Max");
+		max.setAge(29);
 
 //		graphTx3.tx().open();
-		Person man3 = graphTx3.addFramedVertex(Programmer.class);
-		man3.setName("саша");
-		man3.setAge(29);
+		Person paul = graphTx3.addFramedVertex(Programmer.class);
+		paul.setName("Paul");
+		paul.setAge(29);
 
 //		GraphUtils.printAll(fg.getRawTraversal()); // now fg is empty
 
-//		лёша.worksWith(саша); //IllegalStateException: The vertex or type is not associated with this transaction [v[4328]]
+//		rick.worksWith(max); //IllegalStateException: The vertex or type is not associated with this transaction [v[4328]]
 		
 		graphTx1.tx().commit(); // after that data from graphTx1 will be able from graphTx2 and graphTx3
 		GraphUtils.printAll(fg.getRawTraversal());  // has  data from graphTx1
@@ -78,7 +78,7 @@ public class TransactionsThreadedAsMultiTx {
 		WrappedTransaction fgTx = fg.tx();
 		WrappedFramedGraph threadedFg = fgTx.createThreadedTx();
 		
-		// если вызвать tx.close() то всё это обнулится
+		// all that setup will reset if tx.close() will be invoked
 //		threadedFg.tx().getDelegate().onReadWrite(Transaction.READ_WRITE_BEHAVIOR.MANUAL);
 //		threadedFg.tx().getDelegate().onClose(Transaction.CLOSE_BEHAVIOR.MANUAL);
 		threadedFg.tx().getDelegate().addTransactionListener(status -> {

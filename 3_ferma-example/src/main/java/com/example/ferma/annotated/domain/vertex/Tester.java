@@ -1,4 +1,4 @@
-package com.example.ferma.annotated;
+package com.example.ferma.annotated.domain.vertex;
 
 import com.syncleus.ferma.annotations.GraphElement;
 

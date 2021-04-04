@@ -1,6 +1,6 @@
 package com.example.ferma;
 
-import com.example.ferma.annotated.Programmer;
+import com.example.ferma.annotated.domain.vertex.Programmer;
 import com.syncleus.ferma.DelegatingFramedGraph;
 import com.syncleus.ferma.FramedGraph;
 import lombok.SneakyThrows;
@@ -23,14 +23,14 @@ import java.util.concurrent.Future;
  */
 @Slf4j
 public class TransactionsThreadedMultiThreads {
-
+	
 	static ExecutorService executor = Executors.newFixedThreadPool(10);
-
+	
 	@SneakyThrows
 	public static void main(String[] args) {
 		String configFileName = "configs/local-berkeleyje-lucene.properties";
 		Configuration conf = new PropertiesConfiguration(configFileName);
-
+		
 		StandardJanusGraph graph = (StandardJanusGraph) JanusGraphFactory.open(conf);
 		GraphTraversalSource g = graph.traversal();
 		FramedGraph fg = new DelegatingFramedGraph<>(graph, "com.example.ferma.annotated");
@@ -40,12 +40,12 @@ public class TransactionsThreadedMultiThreads {
 		// key [~T$SchemaName] and value [rtferma_type] violates a uniqueness constraint [SystemIndex#~T$SchemaName]
 		
 		GraphUtils.printAll(fg.getRawTraversal());
-
+		
 		executor.shutdown();
 		JanusGraphFactory.drop(graph);
 		graph.close();
 	}
-
+	
 	@SneakyThrows
 	private static void exec(FramedGraph graph) {
 		Runnable task = () -> {
@@ -54,18 +54,18 @@ public class TransactionsThreadedMultiThreads {
 			GraphUtils.printAll(graph.getRawTraversal());
 			graph.tx().commit();
 		};
-
+		
 		Set<Future<?>> executions = new HashSet<>();
-
+		
 		for (int i = 0; i < 10; i++) {
 			executions.add(executor.submit(task));
 		}
-
+		
 		for (Future<?> future : executions) {
 			future.get();
 		}
-
+		
 		graph.tx().commit();
 	}
-
+	
 }

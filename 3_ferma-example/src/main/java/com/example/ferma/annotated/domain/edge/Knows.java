@@ -1,5 +1,6 @@
-package com.example.ferma.annotated;
+package com.example.ferma.annotated.domain.edge;
 
+import com.example.ferma.annotated.domain.vertex.Person;
 import com.syncleus.ferma.AbstractEdgeFrame;
 import com.syncleus.ferma.annotations.GraphElement;
 import com.syncleus.ferma.annotations.InVertex;
@@ -12,18 +13,18 @@ import com.syncleus.ferma.annotations.Property;
  */
 @GraphElement
 public abstract class Knows extends AbstractEdgeFrame {
-
+	
 	public static final String EDGE_LABEL = "knows";
-
+	
 	@Property("years")
 	public abstract int getYears();
-
+	
 	@Property("years")
 	public abstract void setYears(int years);
-
+	
 	@InVertex
 	public abstract Person getIn();
-
+	
 	@OutVertex
 	public abstract Person getOut();
 }

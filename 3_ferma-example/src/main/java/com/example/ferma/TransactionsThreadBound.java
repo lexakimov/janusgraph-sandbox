@@ -1,7 +1,7 @@
 package com.example.ferma;
 
-import com.example.ferma.annotated.Person;
-import com.example.ferma.annotated.Programmer;
+import com.example.ferma.annotated.domain.vertex.Person;
+import com.example.ferma.annotated.domain.vertex.Programmer;
 import com.syncleus.ferma.DelegatingFramedGraph;
 import com.syncleus.ferma.FramedGraph;
 import lombok.SneakyThrows;
@@ -23,40 +23,40 @@ public class TransactionsThreadBound {
 	public static void main(String[] args) {
 		String configFileName = "configs/local-berkeleyje-lucene.properties";
 		Configuration conf = new PropertiesConfiguration(configFileName);
-
+		
 		StandardJanusGraph graph = (StandardJanusGraph) JanusGraphFactory.open(conf);
 		GraphTraversalSource g = graph.traversal();
 		FramedGraph fg = new DelegatingFramedGraph<>(graph, "com.example.ferma.annotated");
-
+		
 		Transaction tx = graph.tx(); // tx = g.tx(); tx = fg.tx().getDelegate();
-
+		
 		// если вызвать tx.close() то всё это обнулится
 		tx.onReadWrite(Transaction.READ_WRITE_BEHAVIOR.MANUAL);
 		tx.onClose(Transaction.CLOSE_BEHAVIOR.MANUAL);
 		tx.addTransactionListener(status -> {
 			log.info("\u001b[42;1m\u001b[36mTransaction listener: {}\u001b[0m", status);
 		});
-
+		
 		fg.tx().open();
-		Person лёша = fg.addFramedVertex(Programmer.class);
-		лёша.setName("Лёша");
-		лёша.setAge(26);
+		Person alice = fg.addFramedVertex(Programmer.class);
+		alice.setName("Alice");
+		alice.setAge(26);
 		fg.tx().commit();
-
+		
 		fg.tx().open();
-		Person саша = fg.addFramedVertex(Programmer.class);
-		саша.setName("саша");
-		саша.setAge(29);
+		Person bob = fg.addFramedVertex(Programmer.class);
+		bob.setName("Bob");
+		bob.setAge(29);
 		fg.tx().commit();
-
+		
 		fg.tx().open();
-		лёша.worksWith(саша);
+		alice.worksWith(bob);
 		fg.tx().commit();
-
+		
 		fg.tx().open();
 		GraphUtils.printAll(fg.getRawTraversal());
 		fg.tx().commit();
-
+		
 		JanusGraphFactory.drop(graph);
 		graph.close();
 	}

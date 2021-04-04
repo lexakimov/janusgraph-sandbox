@@ -1,4 +1,4 @@
-package com.example.ferma.annotated;
+package com.example.ferma.annotated.domain.vertex;
 
 import com.syncleus.ferma.annotations.GraphElement;
 import com.syncleus.ferma.annotations.Property;
@@ -9,15 +9,15 @@ import com.syncleus.ferma.annotations.Property;
  */
 @GraphElement
 public abstract class Programmer extends Person {
-
+	
 	public enum Language {
 		Java, Python, Go, Cpp, JavaScript
 	}
-
+	
 	@Property("language")
 	public abstract Language getLanguage();
-
+	
 	@Property("language")
 	public abstract void setLanguage(Language language);
-
+	
 }
