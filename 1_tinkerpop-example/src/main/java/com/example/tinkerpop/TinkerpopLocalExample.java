@@ -44,8 +44,7 @@ public class TinkerpopLocalExample {
 			MapUtils.debugPrint(System.out, null, m);
 			System.out.println("━━━━━━━━━━━━━━━━━━━");
 		});*/
-
-
+		
 		/*
 		System.out.println("━━━━━━━━━ tx ━━━━━━━━━");
 		System.out.println(g.V().toList());
