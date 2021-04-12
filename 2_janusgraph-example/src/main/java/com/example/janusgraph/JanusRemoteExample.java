@@ -57,6 +57,9 @@ public class JanusRemoteExample {
 		Cluster cluster = Cluster.open(conf.getString("gremlin.remote.driver.clusterFile"));
 		Client client = cluster.connect();
 		
+		Client sessionClient = cluster.connect("session123", true);
+		sessionClient.close();
+		
 		Map<String, Object> params = new HashMap<>();
 		params.put("name", "marko");
 		List<Result> list = client.submit("g.V().has('person','name',name).out('knows')", params).all().get();
