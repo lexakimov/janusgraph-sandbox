@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.example</groupId>
+	<groupId>com.github.lexakimov</groupId>
 	<artifactId>janusgraph-sandbox</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
@@ -13,15 +13,89 @@
 		<module>2_janusgraph-example</module>
 		<module>3_ferma-example</module>
 		<module>4_neo4j-example</module>
+		<module>utils</module>
 	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<!--		<janusgraph.version>0.6.0-SNAPSHOT</janusgraph.version>-->
-		<janusgraph.version>0.5.2</janusgraph.version>
+		<tinkergraph.version>3.4.9</tinkergraph.version>
+		<janusgraph.version>0.5.3</janusgraph.version>
+		<ferma.version>3.3.2</ferma.version>
 		<slf4j.version>1.7.30</slf4j.version>
 		<lombok.version>1.18.16</lombok.version>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.github.lexakimov</groupId>
+				<artifactId>utils</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.syncleus.ferma</groupId>
+				<artifactId>ferma</artifactId>
+				<version>${ferma.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tinkerpop</groupId>
+				<artifactId>gremlin-core</artifactId>
+				<version>${tinkergraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tinkerpop</groupId>
+				<artifactId>gremlin-driver</artifactId>
+				<version>${tinkergraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tinkerpop</groupId>
+				<artifactId>gremlin-groovy</artifactId>
+				<version>${tinkergraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.tinkerpop</groupId>
+				<artifactId>gremlin-server</artifactId>
+				<version>${tinkergraph.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.tinkerpop</groupId>
+				<artifactId>tinkergraph-gremlin</artifactId>
+				<version>${tinkergraph.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-core</artifactId>
+				<version>${janusgraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-berkeleyje</artifactId>
+				<version>${janusgraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-lucene</artifactId>
+				<version>${janusgraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-inmemory</artifactId>
+				<version>${janusgraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-server</artifactId>
+				<version>${janusgraph.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.janusgraph</groupId>
+				<artifactId>janusgraph-cql</artifactId>
+				<version>${janusgraph.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -33,6 +107,37 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!--перенаправление вызовов slf4j в log4j2 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.14.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.13.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.13.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>5.7.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest</artifactId>
+			<version>2.2</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Properties>
+		<Property name="LOG_PATTERN">
+			%d{HH:mm:ss.SSS} %highlight{${LOG_LEVEL_PATTERN:-%5p}} %blue{[%t]} %green{%30c} : %m%n%ex
+		</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="org.apache.commons" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Logger name="org.reflections8" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Logger name="org.janusgraph.diskstorage.berkeleyje.BerkeleyJETx" level="debug" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Logger name="org.janusgraph.diskstorage.berkeleyje.BerkeleyJEStoreManager" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Logger name="org.janusgraph.diskstorage.berkeleyje.BerkeleyJEKeyValueStore" level="debug" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Logger name="org.janusgraph.graphdb.database.idassigner.StandardIDPool" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Logger name="org.janusgraph.graphdb.database.idassigner.placement.SimpleBulkPlacementStrategy" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Logger name="org.janusgraph.graphdb.transaction.StandardJanusGraphTx" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Logger name="org.janusgraph.graphdb.transaction.vertexcache.GuavaVertexCache" level="info" additivity="false">
+			<AppenderRef ref="Console"/>
+		</Logger>
+		<Root level="trace">
+			<AppenderRef ref="Console"/>
+		</Root>
+	</Loggers>
+</Configuration>
