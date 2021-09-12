@@ -3,8 +3,6 @@ package com.github.lexakimov.janusgraph;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import lombok.var;
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.janusgraph.core.JanusGraph;
@@ -27,9 +25,8 @@ public class JanusLocalExampleThreadedTransactions {
 	 * https://docs.janusgraph.org/basics/transactions/
 	 */
 	public static void main(String[] args) throws Exception {
-		String config = "2_janusgraph-example/src/main/java/com/example/janusgraph/local-berkeleyje-lucene.properties";
-		Configuration conf = new PropertiesConfiguration(config);
-		JanusGraph janusGraph = JanusGraphFactory.open(conf);
+		String config = "configs/local-berkeleyje-lucene.properties";
+		JanusGraph janusGraph = JanusGraphFactory.open(config);
 		GraphTraversalSource g = janusGraph.traversal();
 		
 		// threaded transaction

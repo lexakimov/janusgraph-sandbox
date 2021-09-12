@@ -3,8 +3,6 @@ package com.github.lexakimov.janusgraph;
 import com.github.lexakimov.utils.GraphUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.janusgraph.core.JanusGraphFactory;
@@ -30,10 +28,8 @@ public class JanusLocalExampleTransactionsThreaded {
 	@SneakyThrows
 	public static void main(String[] args) {
 		String configFileName = "configs/local-berkeleyje-lucene.properties";
-		Configuration conf = new PropertiesConfiguration(configFileName);
-
 //		StandardJanusGraph graph = (StandardJanusGraph) JanusGraphFactory.open("inmemory");
-		StandardJanusGraph graph = (StandardJanusGraph) JanusGraphFactory.open(conf);
+		StandardJanusGraph graph = (StandardJanusGraph) JanusGraphFactory.open(configFileName);
 		GraphTraversalSource g = graph.traversal();
 
 		GraphUtils.printAll(g);

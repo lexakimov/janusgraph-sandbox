@@ -1,8 +1,6 @@
 package com.github.lexakimov.janusgraph;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.tinkerpop.gremlin.process.traversal.Order;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Direction;
@@ -41,10 +39,8 @@ import static org.janusgraph.core.schema.SchemaStatus.*;
 public class JanusLocalExampleIndex {
 	
 	public static void main(String[] args) throws Exception {
-		String configFileName = "configs/local-berkeleyje-lucene.properties";
-		Configuration conf = new PropertiesConfiguration(configFileName);
-		
-		JanusGraph janusGraph = JanusGraphFactory.open(conf);
+		String config = "configs/local-berkeleyje-lucene.properties";
+		JanusGraph janusGraph = JanusGraphFactory.open(config);
 		GraphTraversalSource g = janusGraph.traversal();
 		
 		// create schema
