@@ -19,7 +19,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<tinkergraph.version>3.4.9</tinkergraph.version>
-		<janusgraph.version>0.5.3</janusgraph.version>
+		<janusgraph.version>0.6.0</janusgraph.version>
 		<ferma.version>3.3.2</ferma.version>
 		<slf4j.version>1.7.30</slf4j.version>
 		<lombok.version>1.18.16</lombok.version>
