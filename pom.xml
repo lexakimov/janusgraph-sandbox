@@ -12,6 +12,7 @@
 		<module>1_tinkerpop-example</module>
 		<module>2_janusgraph-example</module>
 		<module>3_ferma-example</module>
+		<module>4_neo4j-example</module>
 	</modules>
 
 	<properties>
